@@ -6,14 +6,14 @@ import Form from "./Form";
 
 export default function App() {
 // URL VARIABLE
-const url = "http://localhost:3000"
+const url = "http://localhost:4000"
 
 const [cookbooks, setCookbooks] = React.useState([])
 
 // Empty book for Form. So the form starts out empty
 const emptyCookbook = {
   title: "",
-  yearPublished: 0
+  yearPublished: ""
 }
 
 // SELECTED cookbook STATE for user to select &  update
@@ -25,7 +25,6 @@ const getCookbooks = () => {
     .then(response => response.json())
     .then(data => {
       setCookbooks(data)   // array we get back from the fetch that populates cookbooks + updates state
-      console.log("cookbooks", cookbooks)
   })
   
 }
@@ -36,42 +35,42 @@ React.useEffect( () => getCookbooks(), [])
 
 // handleCreate function for creating cookbooks
 // method: post (create)
-// const handleCreate = (newCookbook) => {
-//   fetch(url + "/api/cookbooks/", {
-//     method: "post",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(newCookbook),
-//   })
-//   .then(response => getCookbooks())
-
+const handleCreate = (newCookbook) => {
+  fetch(url + "/api/cookbooks/", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newCookbook),
+  })
+  .then(response => getCookbooks())
+}
 
   // handleUpdate to update a dog when form is clicked
 // method: put (update)
-// const handleUpdate = (cookbook) => {
-//   fetch(url + "/api/cookbooks/" + cookbook._id, {
-//     method: "put",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify(cookbook)
-//   })
-//   .then(response => getCookbooks())    
-// }
+const handleUpdate = (cookbook) => {
+  fetch(url + "/api/cookbooks/" + cookbook._id, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(cookbook)
+  })
+  .then(response => getCookbooks())    
+}
 
 // selectCookbook which selects a cookbook
-// const selectCookbook = (cookbook) => {
-//   setSelectedBook(cookbook)
-// }
+const selectCookbook = (cookbook) => {
+  setSelectedBook(cookbook)
+}
 
-// Delete Dog function to delete a dog
-// const deleteCookbook = (cookbook) => {
-//   fetch(url + "/api/cookbooks/" + cookbook.title, {
-//     method: "delete"
-//   })
-//   .then(response => getCookbooks())
-// }
+//Delete 
+const deleteCookbook = (cookbook) => {
+  fetch(url + "/api/cookbooks/" + cookbook.title, {
+    method: "delete"
+  })
+  .then(response => getCookbooks())
+}
 
 
   return (
@@ -87,8 +86,8 @@ React.useEffect( () => getCookbooks(), [])
       <Switch>
         <Route exact path="/"
         render={(routerprops) => (
-        <Display {...routerprops} cookbooks={cookbooks} selectCookbook={selectCookbook} deleteCookbook={deleteCookbook} />
-        )}
+          <Display {...routerprops} cookbooks={cookbooks} selectCookbook={selectCookbook} deleteCookbook={deleteCookbook} />
+        )} 
         /> 
 
         <Route exact path="/create"
@@ -109,4 +108,5 @@ React.useEffect( () => getCookbooks(), [])
 }
 
 
-// export default App;
+
+// export default App

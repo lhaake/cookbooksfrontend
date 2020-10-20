@@ -1,24 +1,25 @@
 import React from "react";
 
 const Display = (props) => {
-    console.log("this is props in display", props)
-
+    console.log("this is props in display", props.cookbooks.data)
+    const cookbookData = props.cookbooks.data
+    console.log("this is the data!!", cookbookData)
 
   const loaded = () => (
     <div style={{ textAlign: "center" }}>
-      {props.cookbooks.map((book) => (
+      {cookbookData.map((book) => (
         <article>
-          <h1>{props.book.title}</h1>
-          <h3>{props.book.yearPublished}</h3>
+          <h1>{book.title}</h1>
+          <h3>{book.yearPublished}</h3>
           <button onClick={() => {
-            props.selectCookbook(book)        // when button is clicked, the dog is passed into selectDog function - changes the state in App. 
+            props.selectCookbook(book)        // when button is clicked, the book is passed into selectCookbook function - changes the state in App. 
             props.history.push("/edit")
           }}>
             Edit
           </button>
 
            <button onClick={() => {
-            props.deleteCookbook(book)        // when button is clicked, the dog is passed into deleteDog function - deleted via fetch call 
+            props.deleteCookbook(book)        // when button is clicked, the book is passed into deleteCookbook function - deleted via fetch call 
           }}>
             Delete
           </button>
@@ -26,9 +27,11 @@ const Display = (props) => {
         </article>
       ))}
       </div>
-  )
+)
 
-  return props.cookbooks.length > 0 ? loaded() : <h1>Loading...</h1>
+  return ( 
+   props.cookbooks.length > 0 ? loaded() : <h1>Loading...</h1>
+  )
 
 
 }
