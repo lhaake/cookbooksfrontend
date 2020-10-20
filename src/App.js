@@ -24,7 +24,7 @@ const getCookbooks = () => {
   fetch(url + "/api/cookbooks/")
     .then(response => response.json())
     .then(data => {
-      setCookbooks(data)   // array we get back from the fetch that populates cookbooks + updates state
+      setCookbooks(data.data)   // array we get back from the fetch that populates cookbooks + updates state
   })
   
 }

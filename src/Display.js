@@ -1,8 +1,8 @@
 import React from "react";
 
 const Display = (props) => {
-    console.log("this is props in display", props.cookbooks.data)
-    const cookbookData = props.cookbooks.data
+    console.log("this is props in display", props.cookbooks)
+    const cookbookData = props.cookbooks
     console.log("this is the data!!", cookbookData)
 
   const loaded = () => (
@@ -30,7 +30,7 @@ const Display = (props) => {
 )
 
   return ( 
-   props.cookbooks.length > 0 ? loaded() : <h1>Loading...</h1>
+   cookbookData.length > 0 ? loaded() : <h1>Loading...</h1>
   )
 
 
